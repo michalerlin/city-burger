@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>城市漢堡早餐店未來經營方向建議</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        background-color: #f0f0f0; /* Optional: add a background color to see the centering effect */
+      }
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #f8f4fc;
+        color: #333333;
+        font-family: "Microsoft JhengHei", "微軟正黑體", Arial, sans-serif;
+        position: relative;
+        /* overflow: hidden; */ /* Removed as per guidelines */
+      }
+      .content-container {
+        display: flex;
+        flex-direction: column;
+	justify-content: center;
+        align-items: center;
+        padding: 60px;
+        padding: 40px;
+      }
+      .header {
+        border-bottom: 4px solid #6a3b93;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+      }
+      .title {
+        font-size: 36px;
+        font-weight: bold;
+        color: #6a3b93;
+      }
+      .main-content {
+        display: flex;
+        gap: 40px;
+      }
+      .left-column {
+        flex: 1;
+      }
+      .right-column {
+        flex: 1;
+      }
+      .highlight {
+        color: #ff9e1b;
+        font-weight: bold;
+      }
+      .data-point {
+        font-size: 24px;
+        font-weight: bold;
+        color: #6a3b93;
+        margin-bottom: 10px;
+      }
+      .chart-container {
+        height: 300px;
+        margin-bottom: 20px;
+      }
+      .key-point {
+        background-color: rgba(106, 59, 147, 0.1);
+        border-left: 4px solid #6a3b93;
+        padding: 15px;
+        margin-bottom: 15px;
+      }
+      .key-point-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .competitor-card {
+        margin-bottom: 15px;
+      }
+      .competitor-name {
+        font-weight: bold;
+        color: #6a3b93;
+      }
+      .city-burger-position {
+        border: 2px dashed #ff9e1b;
+        padding: 15px;
+        margin-top: 20px;
+      }
+      .factor-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .factor-icon {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #6a3b93;
+        color: white;
+        border-radius: 50%;
+        margin-right: 10px;
+        flex-shrink: 0;
+      }
+      .image-container {
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      .image-container img {
+        height: 100%;
+        object-fit: cover;
+      }
+      .swot-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 15px;
+        margin-top: 20px;
+      }
+      .swot-item {
+        padding: 15px;
+        border-radius: 5px;
+      }
+      .swot-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .strengths {
+        background-color: rgba(106, 59, 147, 0.1);
+      }
+      .weaknesses {
+        background-color: rgba(255, 158, 27, 0.1);
+      }
+      .opportunities {
+        background-color: rgba(106, 59, 147, 0.1);
+      }
+      .threats {
+        background-color: rgba(255, 158, 27, 0.1);
+      }
+      .strategy-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      .strategy-icon {
+        font-size: 24px;
+        color: #6a3b93;
+        margin-right: 15px;
+        width: 30px;
+        text-align: center;
+      }
+      .strategy-content {
+        flex: 1;
+      }
+      .strategy-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .store-image {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+      }
+      .timeline-container {
+        margin-top: 20px;
+      }
+      .timeline-item {
+        display: flex;
+        margin-bottom: 15px;
+      }
+      .timeline-marker {
+        width: 60px;
+        text-align: center;
+        font-weight: bold;
+        color: #6a3b93;
+        flex-shrink: 0;
+      }
+      .timeline-content {
+        flex-grow: 1;
+        border-left: 2px solid #6a3b93;
+        padding-left: 15px;
+        padding-bottom: 15px;
+      }
+      .timeline-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .conclusion-box {
+        background-color: rgba(255, 158, 27, 0.1);
+        border-left: 4px solid #ff9e1b;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container" style="background: linear-gradient(135deg, #6a3b93 0%, #8a5bb4 100%); color: #f8f4fc;">
+      <div class="content-container">
+        <img src="https://private-us-east-1.manuscdn.com/sessionFile/iqgJ73AsZzD7rzr3aBdfzE/sandbox/slides_resource_i3yruqxnt3z7hysrp3ppn-cab4c435-e2b-prod-aws_1753441952029_na1fn_L2hvbWUvdWJ1bnR1L2NpdHlfYnVyZ2VyX3ByZXNlbnRhdGlvbi9pbWFnZXMvY2l0eV9idXJnZXJfbG9nbw.png?x-oss-process=image/resize,w_1560,h_1560/format,webp&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaXFnSjczQXNaekQ3cnpyM2FCZGZ6RS9zYW5kYm94L3NsaWRlc19yZXNvdXJjZV9pM3lydXF4bnQzejdoeXNycDNwcG4tY2FiNGM0MzUtZTJiLXByb2QtYXdzXzE3NTM0NDE5NTIwMjlfbmExZm5fTDJodmJXVXZkV0oxYm5SMUwyTnBkSGxmWW5WeVoyVnlYM0J5WlhObGJuUmhkR2x2Ymk5cGJXRm5aWE12WTJsMGVWOWlkWEpuWlhKZmJHOW5idy5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xNTYwLGhfMTU2MC9mb3JtYXQsd2VicCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=WbQ8xdFCFyjI1-XSiNVlXUQJR6MMctawA4JMNPiuHGCR1vMU0HrKAucqEXPCr4H8LV~z-lXSMJoimu7OKUo6J0rBaCi5WQLBtZwhYeQAMD6zcpmS1v~Qxku~jF3y5sV3E88fbohL7pBkY1Md22x4zhlcvXU167OKc8rR-mOmrlM3PoEXJVzyCM2-cUAPMNNgWhPY5RUNpUUzllc0ahMEFO3T5EXL-53kGE5HNgjivf-sGXsaZNBuF35WoVAqXW1Po3R0gzVnKYOT90jGVUfPnSmBCrlf4twTatCcdCMWPOrJedOPGP7DV2hqP0Vl-IfHtbanLyRQMRJGmoB2gcerGg__" alt="城市漢堡標誌" class="logo" style="width: 200px; height: 200px; margin-bottom: 40px;">
+        <h1 class="title" style="font-size: 48px; font-weight: bold; margin-bottom: 20px; text-align: center;">城市漢堡早餐店未來經營方向建議</h1>
+        <h2 class="subtitle" style="font-size: 28px; margin-bottom: 40px; text-align: center;">市場分析與策略規劃</h2>
+        <p class="date" style="font-size: 20px; margin-top: 60px;">2025年7月</p>
+      </div>
+    </div>
+
+    <div class="slide-container">
+      <div class="content-container">
+        <div class="header">
+          <h1 class="title">台灣早餐市場概況</h1>
+        </div>
+        
+        <div class="main-content">
+          <div class="left-column">
+            <div class="data-point">市場規模：<span class="highlight">2,000億</span> 新台幣</div>
+            <div class="chart-container">
+              <canvas id="marketGrowthChart"></canvas>
+            </div>
+            
+            <div class="key-point">
+              <div class="key-point-title">早餐店密度高</div>
+              <p>台灣早餐店密度直逼便利商店，平均每1,500人就有一家早餐店，顯示市場競爭激烈。</p>
+            </div>
+            
+            <div class="key-point">
+              <div class="key-point-title">外食比例高</div>
+              <p>台灣早餐外食比例高達75.7%，為三餐中外食比例最高的時段。</p>
+            </div>
+          </div>
+          
+          <div class="right-column">
+            <div class="key-point">
+              <div class="key-point-title">市場趨勢</div>
+              <ul class="list-disc pl-5 space-y-2 mt-2">
+                <li>數位化轉型：線上點餐、行動支付、會員系統</li>
+                <li>健康飲食意識提升：低油、低糖、高纖、高蛋白</li>
+                <li>複合式經營：全時段餐飲服務，早午餐模式</li>
+                <li>品牌差異化：特色產品、獨特服務體驗</li>
+                <li>便利性與效率：快速出餐、便捷取餐</li>
+              </ul>
+            </div>
+            
+            <div class="chart-container">
+              <canvas id="consumptionPatternChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-container">
+      <div class="content-container">
+        <div class="header">
+          <h1 class="title">競爭對手分析</h1>
+        </div>
+        
+        <div class="main-content">
+          <div class="left-column">
+            <div class="chart-container">
+              <canvas id="marketShareChart"></canvas>
+            </div>
+            
+            <div class="city-burger-position">
+              <div class="key-point-title">城市漢堡市場定位</div>
+              <p>城市漢堡在產品創新上具備潛力，特色麵包體和手工製作的「紫Q堡」、「功夫堡」等產品，可滿足消費者對獨特口味的需求。然而在數位化和品牌知名度方面，相較於主要競爭對手仍有提升空間。</p>
+            </div>
+          </div>
+          
+          <div class="right-column">
+            <div class="key-point">
+              <div class="key-point-title">主要競爭對手策略</div>
+              
+              <div class="competitor-card">
+                <p class="competitor-name">弘爺漢堡</p>
+                <p>積極推動數位轉型，導入智慧總部CDP、全方位行動點餐服務、數據驅動營銷。全台超過1000家門市，並啟動國際授權。</p>
+              </div>
+              
+              <div class="competitor-card">
+                <p class="competitor-name">麥味登</p>
+                <p>率先改造為咖啡廳模式的早午餐店，提升消費體驗，延長供餐時間。積極進行數位轉型，導入智慧餐飲全通路雲端平台。</p>
+              </div>
+              
+              <div class="competitor-card">
+                <p class="competitor-name">Q Burger</p>
+                <p>數位原生品牌，創業初期即開發客製化POS系統。透過聯名合作、社群媒體行銷提升品牌聲量。強調多品項、世界各國特色早餐。</p>
+              </div>
+              
+              <div class="competitor-card">
+                <p class="competitor-name">拉亞漢堡</p>
+                <p>鎖定「非典型早餐族」，強調精緻化經營，打造舒適的用餐環境。透過數位系統（如Laya Now APP）優化數位體驗。</p>
+              </div>
+            </div>
+            
+            <div class="chart-container">
+              <canvas id="competitivePositionChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-container">
+      <div class="content-container">
+        <div class="header">
+          <h1 class="title">消費者行為與偏好</h1>
+        </div>
+        
+        <div class="main-content">
+          <div class="left-column">
+            <div class="chart-container">
+              <canvas id="preferenceChart"></canvas>
+            </div>
+            
+            <div class="key-point">
+              <div class="key-point-title">消費者行為關鍵因素</div>
+              
+              <div class="factor-item">
+                <div class="factor-icon"><i class="fas fa-clock"></i></div>
+                <div>
+                  <strong>便利性與效率</strong>：忙碌的生活型態使消費者優先考慮能快速取得餐點的早餐店，如掃碼點餐、快速出餐等服務。
+                </div>
+              </div>
+              
+              <div class="factor-item">
+                <div class="factor-icon"><i class="fas fa-heartbeat"></i></div>
+                <div>
+                  <strong>健康意識抬頭</strong>：消費者越來越關注早餐的營養均衡和健康程度，偏好低油、低糖、高纖維、高蛋白的選項。
+                </div>
+              </div>
+              
+              <div class="factor-item">
+                <div class="factor-icon"><i class="fas fa-utensils"></i></div>
+                <div>
+                  <strong>口味與多樣性</strong>：消費者喜歡有豐富品項的早餐店，可滿足不同口味需求，特色產品更能吸引消費者。
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="right-column">
+            <div class="key-point">
+              <div class="key-point-title">消費體驗與環境</div>
+              <p>現代消費者不只吃東西，也「吃氣氛」。舒適、整潔的用餐環境，以及具有品牌風格的裝潢設計，都能提升顧客的消費體驗。良好的服務態度對顧客滿意度和購買決策有顯著影響。</p>
+            </div>
+            
+            <div class="key-point">
+              <div class="key-point-title">數位化服務需求</div>
+              <p>線上點餐、行動支付、會員機制等數位化服務，能提升消費便利性，並透過數據分析了解顧客需求，進而調整行銷策略。年輕消費者尤其重視數位化體驗。</p>
+            </div>
+            
+            <div class="key-point">
+              <div class="key-point-title">價格敏感度</div>
+              <p>學生、退休族或精打細算的顧客對價格較為敏感，偏好便宜的組合。然而，對於願意為健康和品質付費的消費者，價格並非唯一考量。消費者在選擇早餐時，也會考量餐點的CP值。</p>
+            </div>
+            
+            <div class="chart-container">
+              <canvas id="agePreferenceChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-container">
+      <div class="content-container">
+        <div class="header">
+          <h1 class="title">城市漢堡現況分析</h1>
+        </div>
+        
+        <div class="main-content">
+          <div class="left-column">
+            <div class="image-container">
+              <img src="https://private-us-east-1.manuscdn.com/sessionFile/iqgJ73AsZzD7rzr3aBdfzE/sandbox/slides_resource_i3yruqxnt3z7hysrp3ppn-cab4c435-e2b-prod-aws_1753442087009_na1fn_L2hvbWUvdWJ1bnR1L2NpdHlfYnVyZ2VyX3ByZXNlbnRhdGlvbi9pbWFnZXMvY2l0eV9idXJnZXJfc3RvcmU.jpg?x-oss-process=image/resize,w_1560,h_1560/format,webp&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaXFnSjczQXNaekQ3cnpyM2FCZGZ6RS9zYW5kYm94L3NsaWRlc19yZXNvdXJjZV9pM3lydXF4bnQzejdoeXNycDNwcG4tY2FiNGM0MzUtZTJiLXByb2QtYXdzXzE3NTM0NDIwODcwMDlfbmExZm5fTDJodmJXVXZkV0oxYm5SMUwyTnBkSGxmWW5WeVoyVnlYM0J5WlhObGJuUmhkR2x2Ymk5cGJXRm5aWE12WTJsMGVWOWlkWEpuWlhKZmMzUnZjbVUuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTU2MCxoXzE1NjAvZm9ybWF0LHdlYnAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=VYVUmDkUdMKWtT6uFqYP~Vy1vPR48KW19gZeE21wNzijksScKKILIAvdlnbfLK2LRQkg~AKbWsJHh2EkShwTt36ae8tvZgs~fylfwmFjlLs6WLIEzCv-fIJlYy~WaJ984Y9nmbtCHt32wcuaiaW4EeoPQXB0yvYpMD7NLTkTiZMabNhXu2F9DAwbp3jh6~ffjUvmwDZucBIthMTmXs8OvjoH6Muo7TdPH7N-wsTeMeKxwfi1V4WebQZDlzBrtClUFubh2zM1dlEunRRduuExihOnrstOCQT6stQ19P3Q5i2sCBkHrQAMG1DJ7TAx5ab3r8c1c1Jx3~uwuQ6CePHndQ__" alt="城市漢堡門市">
+            </div>
+            
+            <div class="key-point">
+              <div class="key-point-title">品牌定位</div>
+              <p>城市漢堡定位為提供多樣化中西式早餐的連鎖品牌，主打特色麵包體和手工製作的漢堡與三明治，強調食材新鮮與美味。</p>
+            </div>
+            
+            <div class="key-point">
+              <div class="key-point-title">特色產品</div>
+              <ul class="list-disc pl-5 space-y-2 mt-2">
+                <li><span class="highlight">紫Q堡</span>：獨特紫色麵包體，口感Q彈</li>
+                <li><span class="highlight">功夫堡</span>：特製醬料與手工漢堡排的組合</li>
+                <li>多樣化的中西式餐點選擇</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="right-column">
+            <div class="chart-container">
+              <canvas id="performanceChart"></canvas>
+            </div>
+            
+            <div class="swot-container">
+              <div class="swot-item strengths">
+                <div class="swot-title">優勢 (S)</div>
+                <ul class="list-disc pl-5">
+                  <li>特色麵包體與獨特產品</li>
+                  <li>手工製作的品質保證</li>
+                  <li>多樣化的餐點選擇</li>
+                </ul>
+              </div>
+              
+              <div class="swot-item weaknesses">
+                <div class="swot-title">劣勢 (W)</div>
+                <ul class="list-disc pl-5">
+                  <li>數位化程度較低</li>
+                  <li>品牌知名度不足</li>
+                  <li>行銷策略較為傳統</li>
+                </ul>
+              </div>
+              
+              <div class="swot-item opportunities">
+                <div class="swot-title">機會 (O)</div>
+                <ul class="list-disc pl-5">
+                  <li>健康飲食趨勢</li>
+                  <li>數位化轉型空間</li>
+                  <li>產品差異化潛力</li>
+                </ul>
+              </div>
+              
+              <div class="swot-item threats">
+                <div class="swot-title">威脅 (T)</div>
+                <ul class="list-disc pl-5">
+                  <li>連鎖品牌競爭激烈</li>
+                  <li>便利商店早餐競爭</li>
+                  <li>消費者需求快速變化</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-container">
+      <div class="content-container">
+        <div class="header">
+          <h1 class="title">數位化轉型策略</h1>
+        </div>
+        
+        <div class="main-content">
+          <div class="left-column">
+            <div class="key-point">
+              <div class="key-point-title">數位化轉型的必要性</div>
+              <p>在競爭激烈的早餐市場中，數位化轉型已成為提升競爭力的關鍵。領先品牌如弘爺漢堡、Q Burger和拉亞漢堡均已積極導入數位系統，提升營運效率和顧客體驗。</p>
+            </div>
+            
+            <div class="image-container">
+              <img src="https://private-us-east-1.manuscdn.com/sessionFile/iqgJ73AsZzD7rzr3aBdfzE/sandbox/slides_resource_i3yruqxnt3z7hysrp3ppn-cab4c435-e2b-prod-aws_1753442088010_na1fn_L2hvbWUvdWJ1bnR1L2NpdHlfYnVyZ2VyX3ByZXNlbnRhdGlvbi9pbWFnZXMvZGlnaXRhbF9vcmRlcmluZw.jpg?x-oss-process=image/resize,w_1560,h_1560/format,webp&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaXFnSjczQXNaekQ3cnpyM2FCZGZ6RS9zYW5kYm94L3NsaWRlc19yZXNvdXJjZV9pM3lydXF4bnQzejdoeXNycDNwcG4tY2FiNGM0MzUtZTJiLXByb2QtYXdzXzE3NTM0NDIwODgwMTBfbmExZm5fTDJodmJXVXZkV0oxYm5SMUwyTnBkSGxmWW5WeVoyVnlYM0J5WlhObGJuUmhkR2x2Ymk5cGJXRm5aWE12WkdsbmFYUmhiRjl2Y21SbGNtbHVady5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xNTYwLGhfMTU2MC9mb3JtYXQsd2VicCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=ZQkP4Av2rZmA0aFsUPAS8BFcq~3D2ikokxS0lWilr6GfobxM0jtxDTWcgV3QnKruDNXPlU-KEvoNIlXJeeStGeanaMTbX2eJhId2NeFqWgTxMtXKDFObD7alG4hlllcKSaLbibJMon0PTX2f0UOWQFhrloTfyTNZ-uWVzbVoPC7~D7J209KfaCryq6gI01wkp51~knh9R3zqypCCw0KQeBMxAZfHydfmiXFu0xgVbRHB7j-g1TpH3K4Lag7x6fcOSbKVTAnIkcV-3~38PEY8JzsjGj3kCLcbzqiT7aG9bT0SGC87Dsm0lbCqQK6xruGopaB~d3HjyNUOX5tAbCa00w__" alt="數位點餐系統">
+            </div>
+            
+            <div class="key-point">
+              <div class="key-point-title">數位化轉型預期效益</div>
+              <ul class="list-disc pl-5 space-y-2 mt-2">
+                <li>提升點餐效率，減少顧客等待時間</li>
+                <li>增加客單價，透過推薦系統提升加購率</li>
+                <li>建立顧客數據庫，實現精準行銷</li>
+                <li>優化庫存管理，減少食材浪費</li>
+                <li>提升品牌形象，吸引年輕消費族群</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="right-column">
+            <div class="strategy-item">
+              <div class="strategy-icon">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+              <div class="strategy-content">
+                <div class="strategy-title">優化線上點餐系統</div>
+                <p>建立或優化自有的線上點餐APP或平台，提供便捷的預訂、支付功能，減少顧客等待時間。導入客製化POS系統，提升點餐和出餐效率。</p>
+              </div>
+            </div>
+            
+            <div class="strategy-item">
+              <div class="strategy-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="strategy-content">
+                <div class="strategy-title">強化會員制度與數據分析</div>
+                <p>建立完善的會員制度，透過會員消費數據分析，了解顧客的消費習慣、偏好和頻率，進行精準行銷。針對不同會員群體發送客製化優惠券、生日禮等，提升顧客忠誠度。</p>
+              </div>
+            </div>
+            
+            <div class="strategy-item">
+              <div class="strategy-icon">
+                <i class="fas fa-hashtag"></i>
+              </div>
+              <div class="strategy-content">
+                <div class="strategy-title">社群媒體互動與行銷</div>
+                <p>積極經營Facebook、Instagram等社群媒體平台，定期發布新品資訊、優惠活動、品牌故事、健康飲食知識等內容，並與美食部落客或KOL合作，提升品牌曝光度和話題性。</p>
+              </div>
+            </div>
+            
+            <div class="strategy-item">
+              <div class="strategy-icon">
+                <i class="fas fa-robot"></i>
+              </div>
+              <div class="strategy-content">
+                <div class="strategy-title">導入智慧科技</div>
+                <p>導入智慧叫號系統、自助點餐機等，進一步提升營運效率和顧客體驗。對於加盟主，提供數位化管理工具，協助其提升門市管理效率。</p>
+              </div>
+            </div>
+            
+            <div class="chart-container">
+              <canvas id="digitalROIChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-container">
+      <div class="content-container">
+        <div class="header">
+          <h1 class="title">產品創新與差異化</h1>
+        </div>
+        
+        <div class="main-content">
+          <div class="left-column">
+            <div class="key-point">
+              <div class="key-point-title">強化特色產品</div>
+              <p>城市漢堡的「紫Q堡」和「功夫堡」等特色產品具有獨特的麵包體和手工製作優勢，應持續強化其品牌形象和故事，使其成為城市漢堡的招牌和記憶點。</p>
+            </div>
+            
+            <div class="image-container">
+               <img src="https://private-us-east-1.manuscdn.com/sessionFile/iqgJ73AsZzD7rzr3aBdfzE/sandbox/slides_resource_i3yruqxnt3z7hysrp3ppn-cab4c435-e2b-prod-aws_1753442089132_na1fn_L2hvbWUvdWJ1bnR1L2NpdHlfYnVyZ2VyX3ByZXNlbnRhdGlvbi9pbWFnZXMvY2l0eV9idXJnZXJfZm9vZA.jpg?x-oss-process=image/resize,w_1560,h_1560/format,webp&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaXFnSjczQXNaekQ3cnpyM2FCZGZ6RS9zYW5kYm94L3NsaWRlc19yZXNvdXJjZV9pM3lydXF4bnQzejdoeXNycDNwcG4tY2FiNGM0MzUtZTJiLXByb2QtYXdzXzE3NTM0NDIwODkxMzJfbmExZm5fTDJodmJXVXZkV0oxYm5SMUwyTnBkSGxmWW5WeVoyVnlYM0J5WlhObGJuUmhkR2x2Ymk5cGJXRm5aWE12WTJsMGVWOWlkWEpuWlhKZlptOXZaQS5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xNTYwLGhfMTU2MC9mb3JtYXQsd2VicCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=cC14V4CwRVIy-zk6-QvVLenh5gJ0y6oeF2Ncyuvkda3m9TeXIrb7-Srz62egc2pIDx15uEmcCc0W2EFHW-KY--yoW6C814I8xxrT4qLmiThnOba1CPXi96LPHyFZ60WLWsesKkR~qx2geKp1oQcEGOW7GsHYT0~EkidngBENKm8sMneZXaQ3GbFKQBtPP~EkQd6MQ2S00DHUq~YlxIQmwBrjnypRGJcJPqrA4syVGC7kilE1c8ogs5U8s2CpcsJiNwbxuJOKeioOBWmpkCj7OMtWr3HyzAfPKjqRZ7Wq13~C12Gk~QGAxkx-CrxrsAOorIIlHGFFQ-BIKuaX6oefUg__" alt="城市漢堡特色餐點">
+            </div>
+            
+            <div class="key-point">
+              <div class="key-point-title">多元化餐點組合</div>
+              <p>針對不同客群（如學生、上班族、家庭）設計專屬套餐或組合，提升客單價。研究開發符合不同時段需求的餐點，例如輕食午餐、下午茶點心等，以拓展營收來源。</p>
+            </div>
+          </div>
+          
+          <div class="right-column">
+            <div class="key-point">
+              <div class="key-point-title">健康餐點開發</div>
+              <p>順應消費者對健康飲食的趨勢，開發更多低油、低糖、高纖、高蛋白的健康早餐選項。在菜單上標示營養資訊，滿足健康意識較高的客群。</p>
+            </div>
+            
+            <div class="chart-container">
+              <canvas id="healthyMenuChart"></canvas>
+            </div>
+            
+            <div class="key-point">
+              <div class="key-point-title">在地食材運用</div>
+              <p>與在地小農合作，使用新鮮、當季的在地食材，不僅能提升產品品質和風味，也能建立品牌的地方連結和社會責任形象，吸引注重食材來源的消費者。</p>
+              
+              <div class="strategy-item mt-3">
+                <div class="strategy-icon">
+                  <i class="fas fa-leaf"></i>
+                </div>
+                <div>
+                  <strong>季節限定產品：</strong> 根據當季食材推出限定餐點，增加新鮮感和話題性
+                </div>
+              </div>
+              
+              <div class="strategy-item">
+                <div class="strategy-icon">
+                  <i class="fas fa-handshake"></i>
+                </div>
+                <div>
+                  <strong>小農合作計畫：</strong> 與在地小農建立長期合作關係，確保食材品質和穩定供應
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-container">
+      <div class="content-container">
+        <div class="header">
+          <h1 class="title">品牌體驗提升</h1>
+        </div>
+        
+        <div class="main-content">
+          <div class="left-column">
+            <div class="image-container">
+              <img src="https://private-us-east-1.manuscdn.com/sessionFile/iqgJ73AsZzD7rzr3aBdfzE/sandbox/slides_resource_i3yruqxnt3z7hysrp3ppn-cab4c435-e2b-prod-aws_1753442087009_na1fn_L2hvbWUvdWJ1bnR1L2NpdHlfYnVyZ2VyX3ByZXNlbnRhdGlvbi9pbWFnZXMvY2l0eV9idXJnZXJfc3RvcmU.jpg?x-oss-process=image/resize,w_1560,h_1560/format,webp&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvaXFnSjczQXNaekQ3cnpyM2FCZGZ6RS9zYW5kYm94L3NsaWRlc19yZXNvdXJjZV9pM3lydXF4bnQzejdoeXNycDNwcG4tY2FiNGM0MzUtZTJiLXByb2QtYXdzXzE3NTM0NDIwODcwMDlfbmExZm5fTDJodmJXVXZkV0oxYm5SMUwyTnBkSGxmWW5WeVoyVnlYM0J5WlhObGJuUmhkR2x2Ymk5cGJXRm5aWE12WTJsMGVWOWlkWEpuWlhKZmMzUnZjbVUuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTU2MCxoXzE1NjAvZm9ybWF0LHdlYnAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=VYVUmDkUdMKWtT6uFqYP~Vy1vPR48KW19gZeE21wNzijksScKKILIAvdlnbfLK2LRQkg~AKbWsJHh2EkShwTt36ae8tvZgs~fylfwmFjlLs6WLIEzCv-fIJlYy~WaJ984Y9nmbtCHt32wcuaiaW4EeoPQXB0yvYpMD7NLTkTiZMabNhXu2F9DAwbp3jh6~ffjUvmwDZucBIthMTmXs8OvjoH6Muo7TdPH7N-wsTeMeKxwfi1V4WebQZDlzBrtClUFubh2zM1dlEunRRduuExihOnrstOCQT6stQ19P3Q5i2sCBkHrQAMG1DJ7TAx5ab3r8c1c1Jx3~uwuQ6CePHndQ__" alt="城市漢堡店面" class="store-image">
+            </div>
+            
+            <div class="key-point">
+              <div class="key-point-title">店面設計與氛圍營造</div>
+              <ul class="list-disc pl-5 space-y-2 mt-2">
+                <li>重新設計店面，打造現代感、舒適、明亮的用餐環境</li>
+                <li>融入品牌紫色元素，提升品牌辨識度</li>
+                <li>提供多樣化座位區，滿足內用和外帶顧客需求</li>
+                <li>增加綠色植物和自然元素，創造舒適氛圍</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="right-column">
+            <div class="chart-container">
+              <canvas id="customerExperienceChart"></canvas>
+            </div>
+            
+            <div class="key-point">
+              <div class="key-point-title">品牌體驗提升策略</div>
+              
+              <div class="strategy-item">
+                <div class="strategy-icon">
+                  <i class="fas fa-user-friends"></i>
+                </div>
+                <div class="strategy-content">
+                  <div class="strategy-title">提升服務品質</div>
+                  <p>加強員工培訓，提升服務人員專業素養和服務態度，確保點餐、出餐流程順暢，建立顧客意見回饋機制。</p>
+                </div>
+              </div>
+              
+              <div class="strategy-item">
+                <div class="strategy-icon">
+                  <i class="fas fa-book-open"></i>
+                </div>
+                <div class="strategy-content">
+                  <div class="strategy-title">品牌故事與價值傳遞</div>
+                  <p>透過店內文宣、社群媒體、包裝設計等方式，傳遞城市漢堡的品牌故事、經營理念和產品價值。</p>
+                </div>
+              </div>
+              
+              <div class="strategy-item">
+                <div class="strategy-icon">
+                  <i class="fas fa-leaf"></i>
+                </div>
+                <div class="strategy-content">
+                  <div class="strategy-title">環保與永續發展</div>
+                  <p>導入環保包裝材料、減少食物浪費等永續發展措施，吸引注重環保的消費者。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-container">
+      <div class="content-container">
+        <div class="header">
+          <h1 class="title">結論與行動計劃</h1>
+        </div>
+        
+        <div class="main-content">
+          <div class="left-column">
+            <div class="conclusion-box">
+              <div class="key-point-title">核心策略方向</div>
+              <p>城市漢堡應專注於<span class="highlight">產品差異化</span>、<span class="highlight">數位化轉型</span>和<span class="highlight">品牌體驗提升</span>三大方向，以在競爭激烈的早餐市場中脫穎而出。</p>
+            </div>
+            
+            <div class="key-point">
+              <div class="key-point-title">預期成效</div>
+              <ul class="list-disc pl-5 space-y-2 mt-2">
+                <li>提升品牌知名度和市場佔有率</li>
+                <li>增加顧客忠誠度和回購率</li>
+                <li>提高單店營業額和整體獲利能力</li>
+                <li>建立差異化競爭優勢，增強市場競爭力</li>
+              </ul>
+            </div>
+            
+            <div class="chart-container">
+              <canvas id="implementationChart"></canvas>
+            </div>
+          </div>
+          
+          <div class="right-column">
+            <div class="key-point">
+              <div class="key-point-title">行動計劃時程</div>
+              
+              <div class="timeline-container">
+                <div class="timeline-item">
+                  <div class="timeline-marker">第1季</div>
+                  <div class="timeline-content">
+                    <div class="timeline-title">基礎建設與規劃</div>
+                    <ul class="list-disc pl-5">
+                      <li>數位化系統評估與選型</li>
+                      <li>健康餐點研發計劃啟動</li>
+                      <li>店面設計改造規劃</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div class="timeline-item">
+                  <div class="timeline-marker">第2季</div>
+                  <div class="timeline-content">
+                    <div class="timeline-title">系統導入與產品創新</div>
+                    <ul class="list-disc pl-5">
+                      <li>線上點餐系統導入</li>
+                      <li>會員制度建立</li>
+                      <li>健康餐點系列上市</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div class="timeline-item">
+                  <div class="timeline-marker">第3季</div>
+                  <div class="timeline-content">
+                    <div class="timeline-title">品牌體驗提升</div>
+                    <ul class="list-disc pl-5">
+                      <li>店面環境改造</li>
+                      <li>員工服務培訓</li>
+                      <li>社群媒體行銷強化</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div class="timeline-item">
+                  <div class="timeline-marker">第4季</div>
+                  <div class="timeline-content">
+                    <div class="timeline-title">整合與優化</div>
+                    <ul class="list-disc pl-5">
+                      <li>數據分析與策略調整</li>
+                      <li>加盟體系優化</li>
+                      <li>新市場拓展評估</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      // 市場成長趨勢圖
+      const growthCtx = document.getElementById("marketGrowthChart").getContext("2d");
+      const growthChart = new Chart(growthCtx, {
+        type: "line",
+        data: {
+          labels: ["2020", "2021", "2022", "2023", "2024", "2025"],
+          datasets: [{
+            label: "早餐市場規模 (億新台幣)",
+            data: [1600, 1700, 1800, 1900, 2000, 2100],
+            backgroundColor: "rgba(106, 59, 147, 0.2)",
+            borderColor: "#6a3b93",
+            borderWidth: 3,
+            tension: 0.3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: "台灣早餐市場規模成長趨勢",
+              font: {
+                size: 16
+              }
+            },
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: false,
+              min: 1500,
+              title: {
+                display: true,
+                text: "億新台幣"
+              }
+            }
+          }
+        }
+      });
+      
+      // 消費模式圖
+      const consumptionCtx = document.getElementById("consumptionPatternChart").getContext("2d");
+      const consumptionChart = new Chart(consumptionCtx, {
+        type: "bar",
+        data: {
+          labels: ["便利性", "價格", "健康", "品質", "品牌"],
+          datasets: [{
+            label: "消費者考量因素重要性",
+            data: [85, 70, 55, 75, 40],
+            backgroundColor: [
+              "#ff9e1b",
+              "#ff9e1b",
+              "#ff9e1b",
+              "#ff9e1b",
+              "#ff9e1b"
+            ],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: "早餐消費者考量因素",
+              font: {
+                size: 16
+              }
+            },
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              title: {
+                display: true,
+                text: "重要性 (%)"
+              }
+            }
+          }
+        }
+      });
+      
+      // 市場份額圖表
+      const marketShareCtx = document.getElementById("marketShareChart").getContext("2d");
+      const marketShareChart = new Chart(marketShareCtx, {
+        type: "pie",
+        data: {
+          labels: ["弘爺漢堡", "美而美系列", "麥味登", "Q Burger", "拉亞漢堡", "城市漢堡", "其他"],
+          datasets: [{
+            data: [25, 22, 15, 12, 8, 3, 15],
+            backgroundColor: [
+              "#6a3b93",
+              "#8a5bb4",
+              "#a87dd4",
+              "#c69fe5",
+              "#e4c1f5",
+              "#ff9e1b",
+              "#d9d9d9"
+            ],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: "台灣連鎖早餐品牌市場份額估計 (%)",
+              font: {
+                size: 16
+              }
+            },
+            legend: {
+              position: "right"
+            }
+          }
+        }
+      });
+      
+      // 競爭定位圖表
+      const positionCtx = document.getElementById("competitivePositionChart").getContext("2d");
+      const positionChart = new Chart(positionCtx, {
+        type: "scatter",
+        data: {
+          datasets: [
+            {
+              label: "弘爺漢堡",
+              data: [{x: 8, y: 7}],
+              backgroundColor: "#6a3b93",
+              pointRadius: 10
+            },
+            {
+              label: "美而美系列",
+              data: [{x: 6, y: 5}],
+              backgroundColor: "#8a5bb4",
+              pointRadius: 10
+            },
+            {
+              label: "麥味登",
+              data: [{x: 7, y: 8}],
+              backgroundColor: "#a87dd4",
+              pointRadius: 10
+            },
+            {
+              label: "Q Burger",
+              data: [{x: 9, y: 6}],
+              backgroundColor: "#c69fe5",
+              pointRadius: 10
+            },
+            {
+              label: "拉亞漢堡",
+              data: [{x: 6, y: 8}],
+              backgroundColor: "#e4c1f5",
+              pointRadius: 10
+            },
+            {
+              label: "城市漢堡",
+              data: [{x: 5, y: 6}],
+              backgroundColor: "#ff9e1b",
+              pointRadius: 10
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "數位化程度"
+              },
+              min: 0,
+              max: 10
+            },
+            y: {
+              title: {
+                display: true,
+                text: "產品差異化"
+              },
+              min: 0,
+              max: 10
+            }
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: "早餐品牌競爭定位圖",
+              font: {
+                size: 16
+              }
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      });
+      
+      // 消費者偏好圖表
+      const preferenceCtx = document.getElementById("preferenceChart").getContext("2d");
+      const preferenceChart = new Chart(preferenceCtx, {
+        type: "radar",
+        data: {
+          labels: ["便利性", "健康", "價格", "口味", "環境", "服務速度"],
+          datasets: [{
+            label: "消費者偏好重要性",
+            data: [90, 65, 75, 85, 60, 80],
+            backgroundColor: "rgba(106, 59, 147, 0.2)",
+            borderColor: "#6a3b93",
+            borderWidth: 2,
+            pointBackgroundColor: "#6a3b93"
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: "早餐消費者偏好因素分析",
+              font: {
+                size: 16
+              }
+            }
+          },
+          scales: {
+            r: {
+              angleLines: {
+                display: true
+              },
+              suggestedMin: 0,
+              suggestedMax: 100
+            }
+          }
+        }
+      });
+      
+      // 年齡層偏好圖表
+      const agePreferenceCtx = document.getElementById("agePreferenceChart").getContext("2d");
+      const agePreferenceChart = new Chart(agePreferenceCtx, {
+        type: "bar",
+        data: {
+          labels: ["18-24歲", "25-34歲", "35-44歲", "45-54歲", "55歲以上"],
+          datasets: [
+            {
+              label: "健康飲食重視度",
+              data: [50, 65, 75, 80, 85],
+              backgroundColor: "#6a3b93"
+            },
+            {
+              label: "數位服務重視度",
+              data: [90, 85, 70, 50, 30],
+              backgroundColor: "#ff9e1b"
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: "不同年齡層消費者偏好比較",
+              font: {
+                size: 16
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              title: {
+                display: true,
+                text: "重視程度 (%)"
+              }
+            }
+          }
+        }
+      });
+      
+      // 績效雷達圖
+      const performanceCtx = document.getElementById("performanceChart").getContext("2d");
+      const performanceChart = new Chart(performanceCtx, {
+        type: "radar",
+        data: {
+          labels: ["產品創新", "數位化程度", "品牌知名度", "服務品質", "價格競爭力", "門市環境"],
+          datasets: [{
+            label: "城市漢堡",
+            data: [7, 4, 3, 6, 7, 5],
+            backgroundColor: "rgba(255, 158, 27, 0.2)",
+            borderColor: "#ff9e1b",
+            borderWidth: 2,
+            pointBackgroundColor: "#ff9e1b"
+          }, {
+            label: "行業平均",
+            data: [5, 6, 6, 5, 6, 6],
+            backgroundColor: "rgba(106, 59, 147, 0.2)",
+            borderColor: "#6a3b93",
+            borderWidth: 2,
+            pointBackgroundColor: "#6a3b93"
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              angleLines: {
+                display: true
+              },
+              suggestedMin: 0,
+              suggestedMax: 10
+            }
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: "城市漢堡與行業平均表現比較",
+              font: {
+                size: 16
+              }
+            }
+          }
+        }
+      });
+      
+      // 數位化投資回報圖表
+      const roiCtx = document.getElementById("digitalROIChart").getContext("2d");
+      const roiChart = new Chart(roiCtx, {
+        type: "bar",
+        data: {
+          labels: ["線上點餐系統", "會員數據分析", "社群媒體行銷", "智慧科技設備"],
+          datasets: [{
+            label: "投資成本",
+            data: [30, 25, 15, 40],
+            backgroundColor: "#6a3b93",
+            borderWidth: 0
+          }, {
+            label: "預期年回報",
+            data: [45, 50, 25, 55],
+            backgroundColor: "#ff9e1b",
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: "數位化投資與預期回報分析 (萬元/年)",
+              font: {
+                size: 16
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: "金額 (萬元)"
+              }
+            }
+          }
+        }
+      });
+      
+      // 健康餐點潛力圖表
+      const healthyCtx = document.getElementById("healthyMenuChart").getContext("2d");
+      const healthyMenuChart = new Chart(healthyCtx, {
+        type: "radar",
+        data: {
+          labels: ["低油", "低糖", "高纖", "高蛋白", "在地食材", "有機成分"],
+          datasets: [
+            {
+              label: "目前產品",
+              data: [40, 30, 35, 50, 45, 20],
+              backgroundColor: "rgba(106, 59, 147, 0.2)",
+              borderColor: "#6a3b93",
+              borderWidth: 2,
+              pointBackgroundColor: "#6a3b93"
+            },
+            {
+              label: "建議發展方向",
+              data: [70, 75, 80, 85, 90, 65],
+              backgroundColor: "rgba(255, 158, 27, 0.2)",
+              borderColor: "#ff9e1b",
+              borderWidth: 2,
+              pointBackgroundColor: "#ff9e1b"
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              angleLines: {
+                display: true
+              },
+              suggestedMin: 0,
+              suggestedMax: 100
+            }
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: "健康餐點發展潛力分析",
+              font: {
+                size: 16
+              }
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      });
+      
+      // 顧客體驗提升效益圖表
+      const experienceCtx = document.getElementById("customerExperienceChart").getContext("2d");
+      const experienceChart = new Chart(experienceCtx, {
+        type: "radar",
+        data: {
+          labels: ["服務滿意度", "環境舒適度", "品牌認同感", "回購意願", "推薦意願"],
+          datasets: [
+            {
+              label: "現況",
+              data: [60, 55, 50, 65, 55],
+              backgroundColor: "rgba(106, 59, 147, 0.2)",
+              borderColor: "#6a3b93",
+              borderWidth: 2,
+              pointBackgroundColor: "#6a3b93"
+            },
+            {
+              label: "提升目標",
+              data: [85, 90, 80, 85, 85],
+              backgroundColor: "rgba(255, 158, 27, 0.2)",
+              borderColor: "#ff9e1b",
+              borderWidth: 2,
+              pointBackgroundColor: "#ff9e1b"
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: "品牌體驗提升效益評估",
+              font: {
+                size: 16
+              }
+            }
+          },
+          scales: {
+            r: {
+              min: 0,
+              max: 100,
+              ticks: {
+                stepSize: 20
+              }
+            }
+          }
+        }
+      });
+      
+      // 實施優先順序圖表
+      const implementationCtx = document.getElementById("implementationChart").getContext("2d");
+      const implementationChart = new Chart(implementationCtx, {
+        type: "bubble",
+        data: {
+          datasets: [
+            {
+              label: "數位化轉型",
+              data: [
+                {x: 8, y: 9, r: 15}
+              ],
+              backgroundColor: "#6a3b93"
+            },
+            {
+              label: "健康餐點開發",
+              data: [
+                {x: 7, y: 8, r: 12}
+              ],
+              backgroundColor: "#8a5bb4"
+            },
+            {
+              label: "特色產品強化",
+              data: [
+                {x: 9, y: 7, r: 10}
+              ],
+              backgroundColor: "#a87dd4"
+            },
+            {
+              label: "店面環境改造",
+              data: [
+                {x: 6, y: 7, r: 8}
+              ],
+              backgroundColor: "#c69fe5"
+            },
+            {
+              label: "會員制度建立",
+              data: [
+                {x: 8, y: 6, r: 10}
+              ],
+              backgroundColor: "#e4c1f5"
+            },
+            {
+              label: "社群媒體行銷",
+              data: [
+                {x: 7, y: 5, r: 8}
+              ],
+              backgroundColor: "#ff9e1b"
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: "策略實施優先順序矩陣",
+              font: {
+                size: 16
+              }
+            },
+            legend: {
+              position: "bottom"
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return context.dataset.label;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              min: 0,
+              max: 10,
+              title: {
+                display: true,
+                text: "實施難易度 (越右越容易)"
+              }
+            },
+            y: {
+              min: 0,
+              max: 10,
+              title: {
+                display: true,
+                text: "預期效益 (越高越好)"
+              }
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
+
